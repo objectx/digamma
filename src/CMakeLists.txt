@@ -9,6 +9,8 @@ add_executable (${PROJECT_NAME})
 
 target_compile_features (${PROJECT_NAME} PRIVATE cxx_std_14)
 target_compile_options (${PROJECT_NAME} PRIVATE -fstrict-aliasing)
+target_compile_options (${PROJECT_NAME} PRIVATE $<$<CONFIG:Release>:-fomit-frame-pointer -momit-leaf-frame-pointer>)
+target_link_libraries (${PROJECT_NAME} PRIVATE Threads::Threads)
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE
     SYSTEM_SHARE_PATH="${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}"

@@ -4,12 +4,14 @@ cmake_minimum_required (VERSION 3.16)
 set (SITE_LIBS "--sitelib=${PROJECT_SOURCE_DIR}/test:${PROJECT_SOURCE_DIR}/sitelib:${PROJECT_SOURCE_DIR}/stdlib")
 
 function (make_test_ name_)
+    set (accdir_ ${CMAKE_CURRENT_BINARY_DIR}/acc.dir/${name_})
+    file (MAKE_DIRECTORY ${accdir_})
     add_test (NAME ${name_}
               WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
               COMMAND ${PROJECT_NAME}
                     ${ARGN}
                     --heap-limit=128
-                    --acc=${CMAKE_CURRENT_BINARY_DIR}
+                    --acc=${accdir_}
                     --clean-acc
                     ${SITE_LIBS}
                     ${CMAKE_CURRENT_SOURCE_DIR}/${name_}.scm)
